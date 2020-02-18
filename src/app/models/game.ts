@@ -22,7 +22,7 @@ export class Game {
         const initialHealth = 100;
         const attack1 = new Attack('éclair', 25);
         const attack2 = new Attack('coupe', 31);
-    
+
         const pokemon1 = new Pokemon('Pikachu', 80, 10, initialHealth, attack1);
         const pokemon2 = new Pokemon('Bulbizarre', 50, 10, initialHealth, attack2);
 
@@ -55,7 +55,6 @@ export class Game {
             }
 
             this.messages.push(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`);
-
             this.pokemon1.attackPokemon(this.pokemon2);
 
             if (this.pokemon2.health > 0) {
@@ -81,5 +80,4 @@ export class Game {
         this.gameStatus.state = GameStatusEnum.Running;
         this.fight();
     }
-
 }

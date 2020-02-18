@@ -334,7 +334,7 @@
       </div>
   </div>
 
-  <button (click)="startGame();" *ngIf="gameStatus.state === 'STOPPED'">Start Battle!</button>
+  <button id="startButton" (click)="startGame();" *ngIf="gameStatus.state === 'STOPPED'">Start Battle!</button>
   <button (click)="pauseGame();" *ngIf="gameStatus.state === 'RUNNING'">Pause Battle!</button>
   <button (click)="resumeGame();" *ngIf="gameStatus.state === 'PAUSED'">Resume Battle!</button>
   
