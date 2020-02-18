@@ -334,22 +334,14 @@
       </div>
   </div>
 
-  <button (click)="launchGame();">Start battle!</button>
+  <button (click)="startGame();" *ngIf="gameStatus.state === 'STOPPED'">Start Battle!</button>
+  <button (click)="pauseGame();" *ngIf="gameStatus.state === 'RUNNING'">Pause Battle!</button>
+  <button (click)="resumeGame();" *ngIf="gameStatus.state === 'PAUSED'">Resume Battle!</button>
   
   <div style="width: 40%; height: 150px; overflow: auto; border: 1px solid #ccc; margin-top: 30px;" *ngIf="messages">
       <div *ngFor="let msg of messages.slice().reverse()">{{msg}}</div>
   </div>
 
 </div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-
 
 <router-outlet></router-outlet>

@@ -1,16 +1,18 @@
 import { Pokemon } from './pokemon';
 import { Battle } from './battle';
 import { Attack } from './attack';
+import { GameStatus, GameStatusEnum } from '../models/gameStatus';
 
 export class Game {
 
     public messages: string[] = [];
+    public gameStatus: GameStatus = new GameStatus(GameStatusEnum.Stopped);
 
+    private pokemon1: Pokemon;
+    private pokemon2: Pokemon;
+    private myTimer: any;
+    
     constructor( ) { }
-
-    getMessage() : string[] {
-        return this.messages;
-    }
 
     startGame() : void {
         this.initBattle();
@@ -24,6 +26,8 @@ export class Game {
         const pokemon1 = new Pokemon('Pikachu', 80, 10, initialHealth, attack1);
         const pokemon2 = new Pokemon('Bulbizarre', 50, 10, initialHealth, attack2);
 
+        this.messages.splice(0, this.messages.length);
+
         this.startBattle(new Battle(pokemon1, pokemon2));
     }
 
@@ -31,37 +35,51 @@ export class Game {
 
         this.messages.push('Lancement du combat...');
 
-        const firstPokemon = battle.getFirstPokemonBattle();
-        const secondPokemon = firstPokemon === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
+        this.pokemon1 = battle.getFirstPokemonBattle();
+        this.pokemon2 = this.pokemon1 === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
         
-        this.messages.push(`${firstPokemon.name} commence en premier le combat.`);
+        this.messages.push(`${this.pokemon1.name} commence en premier le combat.`);
 
-        this.fight(firstPokemon, secondPokemon);
+        this.gameStatus.state = GameStatusEnum.Running;
+        this.fight();
     }
 
-    private fight(pokemon1: Pokemon, pokemon2: Pokemon) : void {
+    private fight() : void {
 
-        const myTimer = setInterval(function() {
+        this.myTimer = setInterval(function() {
 
-            this.messages.push(`${pokemon1.name} lance attaque ${pokemon1.attack.name} sur ${pokemon2.name}.`);
+            if (this.gameStatus.state === GameStatusEnum.Paused) {
+                clearInterval(this.myTimer);
+                this.gameStatus.state = GameStatusEnum.Paused;
+                return;
+            }
 
-            pokemon1.attackPokemon(pokemon2);
+            this.messages.push(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`);
 
-            if (pokemon2.health > 0) {
-                this.messages.push(`Il reste ${pokemon2.health} points de vie à ${pokemon2.name}.`);
+            this.pokemon1.attackPokemon(this.pokemon2);
+
+            if (this.pokemon2.health > 0) {
+                this.messages.push(`Il reste ${this.pokemon2.health} points de vie à ${this.pokemon2.name}.`);
             }
             else {
-                this.messages.push(`${pokemon2.name} est mort.`);
-                this.messages.push(`${pokemon1.name} gagne le combat.`);
-                clearInterval(myTimer);
+                this.messages.push(`${this.pokemon2.name} est KO.`);
+                this.messages.push(`${this.pokemon1.name} gagne le combat.`);
+
+                this.gameStatus.state = GameStatusEnum.Stopped;
+                clearInterval(this.myTimer);
             }
 
             // change pokemon position for the next fight
-            let temp = pokemon1;
-            pokemon1 = pokemon2;
-            pokemon2 = temp;
+            let temp = this.pokemon1;
+            this.pokemon1 = this.pokemon2;
+            this.pokemon2 = temp;
             
-        }.bind(this), 3000);
+        }.bind(this), 1000);
+    }
+
+    public resumeGame() : void {
+        this.gameStatus.state = GameStatusEnum.Running;
+        this.fight();
     }
 
 }
