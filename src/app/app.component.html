@@ -326,12 +326,18 @@
   <p>Selectionner les 2 pokémons qui devront combattre.</p>
 
   <div style="width: 80%; text-align: center; margin-top: 50px;">
-    <div style="width: 50%; display: inline-block;">
+    <div style="width: 50%; display: inline-block; transform: scaleX(-1);">
         <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png">
       </div>
       <div style="width: 50%; display: inline-block;">
         <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png">
       </div>
+  </div>
+
+  <button (click)="launchGame();">Start battle!</button>
+  
+  <div style="width: 40%; height: 150px; overflow: auto; border: 1px solid #ccc; margin-top: 30px;" *ngIf="messages">
+      <div *ngFor="let msg of messages.slice().reverse()">{{msg}}</div>
   </div>
 
 </div>

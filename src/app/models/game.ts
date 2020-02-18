@@ -4,10 +4,15 @@ import { Attack } from './attack';
 
 export class Game {
 
-    constructor() {
+    public messages: string[] = [];
+
+    constructor( ) { }
+
+    getMessage() : string[] {
+        return this.messages;
     }
 
-    startGame() {
+    startGame() : void {
         this.initBattle();
     }
 
@@ -24,12 +29,12 @@ export class Game {
 
     private startBattle(battle: Battle) {
 
-        console.log('Lancement du combat...');
+        this.messages.push('Lancement du combat...');
 
         const firstPokemon = battle.getFirstPokemonBattle();
         const secondPokemon = firstPokemon === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
         
-        console.log(`${firstPokemon.name} commence en premier le combat.`);
+        this.messages.push(`${firstPokemon.name} commence en premier le combat.`);
 
         this.fight(firstPokemon, secondPokemon);
     }
@@ -38,15 +43,16 @@ export class Game {
 
         const myTimer = setInterval(function() {
 
-            console.log(`${pokemon1.name} lance attaque ${pokemon1.attack.name} sur ${pokemon2.name}.`);
+            this.messages.push(`${pokemon1.name} lance attaque ${pokemon1.attack.name} sur ${pokemon2.name}.`);
+
             pokemon1.attackPokemon(pokemon2);
 
             if (pokemon2.health > 0) {
-                console.log(`Il reste ${pokemon2.health} points de vie à ${pokemon2.name}.`);
+                this.messages.push(`Il reste ${pokemon2.health} points de vie à ${pokemon2.name}.`);
             }
             else {
-                console.log(`${pokemon2.name} est mort.`);
-                console.log(`${pokemon1.name} gagne le combat.`);
+                this.messages.push(`${pokemon2.name} est mort.`);
+                this.messages.push(`${pokemon1.name} gagne le combat.`);
                 clearInterval(myTimer);
             }
 
@@ -55,7 +61,7 @@ export class Game {
             pokemon1 = pokemon2;
             pokemon2 = temp;
             
-        }, 3000);
+        }.bind(this), 3000);
     }
 
 }
