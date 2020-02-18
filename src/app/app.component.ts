@@ -12,12 +12,8 @@ export class AppComponent {
     @Input() messages: string[];
 
     launchGame() {
-        let game = new Game();
+        const game = new Game();
         game.startGame();
         this.messages = game.getMessage();
-
-        //console.log('Here :');
-
-        //console.log(game.getMessage());
     }
 }

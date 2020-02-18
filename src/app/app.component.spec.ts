@@ -32,4 +32,14 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('pokemon app is running!');
   });
+
+  it('should launch the battle', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const view = fixture.nativeElement;
+    const app = fixture.componentInstance;
+    view.querySelector('#startButton').click();
+    fixture.detectChanges();
+    expect(app.messages.length).toBeGreaterThan(0);
+  });
+
 });
