@@ -1,9 +1,13 @@
-import { Pokemon } from './pokemon';
-import { Battle } from './battle';
-import { Attack } from './attack';
+import { Injectable } from '@angular/core';
+import { Pokemon } from '../models/pokemon';
+import { Battle } from '../models/battle';
+import { Attack } from '../models/attack';
 import { GameStatus, GameStatusEnum } from '../models/gameStatus';
 
-export class Game {
+@Injectable({
+    providedIn: 'root'
+})
+export class GameService {
 
     public messages: string[] = [];
     public gameStatus: GameStatus = new GameStatus(GameStatusEnum.Stopped);
@@ -11,10 +15,10 @@ export class Game {
     private pokemon1: Pokemon;
     private pokemon2: Pokemon;
     private myTimer: any;
-    
-    constructor( ) { }
 
-    startGame() : void {
+    constructor() { }
+
+    startGame(): void {
         this.initBattle();
     }
 
@@ -37,16 +41,16 @@ export class Game {
 
         this.pokemon1 = battle.getFirstPokemonBattle();
         this.pokemon2 = this.pokemon1 === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
-        
+
         this.messages.push(`${this.pokemon1.name} commence en premier le combat.`);
 
         this.gameStatus.state = GameStatusEnum.Running;
         this.fight();
     }
 
-    private fight() : void {
+    private fight(): void {
 
-        this.myTimer = setInterval(function() {
+        this.myTimer = setInterval(function () {
 
             if (this.gameStatus.state === GameStatusEnum.Paused) {
                 clearInterval(this.myTimer);
@@ -72,12 +76,13 @@ export class Game {
             let temp = this.pokemon1;
             this.pokemon1 = this.pokemon2;
             this.pokemon2 = temp;
-            
+
         }.bind(this), 1000);
     }
 
-    public resumeGame() : void {
+    public resumeGame(): void {
         this.gameStatus.state = GameStatusEnum.Running;
         this.fight();
     }
+
 }
