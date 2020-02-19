@@ -1,0 +1,32 @@
+<div class="content" role="main">
+
+    <!-- Highlight Card -->
+    <div class="card highlight-card card-small" style="min-width: 20%;">
+
+        <img width="75"
+            src="https://www.brooklinelibrary.org/wp-content/uploads/2016/07/2000px-Pok%C3%A9_Ball.svg_-1.png">
+
+        <span style="text-transform: capitalize; margin-left: 10px;">{{title}} app is running!</span>
+    </div>
+
+    <h2>Liste des pokémons</h2>
+    <p>Selectionner les 2 pokémons qui devront combattre.</p>
+
+    <div style="width: 80%; text-align: center; margin-top: 50px;">
+        <div style="width: 50%; display: inline-block; transform: scaleX(-1);">
+            <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png">
+        </div>
+        <div style="width: 50%; display: inline-block;">
+            <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png">
+        </div>
+    </div>
+
+    <button id="startButton" (click)="startGame();" [hidden]="gameStatus.state !== 'STOPPED'">Lancer le combat !</button>
+    <button (click)="pauseGame();" *ngIf="gameStatus.state === 'RUNNING'">Pause</button>
+    <button (click)="resumeGame();" *ngIf="gameStatus.state === 'PAUSED'">Reprendre le combat</button>
+
+    <div style="width: 40%; height: 150px; overflow: auto; border: 1px solid #ccc; margin-top: 30px;" *ngIf="messages">
+        <div *ngFor="let msg of messages.slice().reverse()">{{msg}}</div>
+    </div>
+
+</div>
