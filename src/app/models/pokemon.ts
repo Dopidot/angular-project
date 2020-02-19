@@ -7,7 +7,8 @@ export class Pokemon {
         public speed: number,
         public priorityMove: number,
         public health: number = 100,
-        public attack: Attack
+        public attack: Attack,
+        public url: string
     ) { }
 
     attackPokemon(target: Pokemon) : void {

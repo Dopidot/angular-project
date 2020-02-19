@@ -23,8 +23,8 @@ export class Game {
         const attack1 = new Attack('éclair', 25);
         const attack2 = new Attack('coupe', 31);
 
-        const pokemon1 = new Pokemon('Pikachu', 80, 10, initialHealth, attack1);
-        const pokemon2 = new Pokemon('Bulbizarre', 50, 10, initialHealth, attack2);
+        const pokemon1 = new Pokemon('Pikachu', 80, 10, initialHealth, attack1,"");
+        const pokemon2 = new Pokemon('Bulbizarre', 50, 10, initialHealth, attack2,"");
 
         this.messages.splice(0, this.messages.length);
 
