@@ -3,6 +3,7 @@ import { Attack } from './attack';
 export class Pokemon {
 	
 	constructor(
+        public id: number,
         public name: string,
         public speed: number,
         public priorityMove: number,

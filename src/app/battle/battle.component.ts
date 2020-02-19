@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
-import { GameStatus, GameStatusEnum } from '../models/gameStatus';
+import { GameStatusEnum } from '../models/gameStatus';
+import { EventInfos } from '../models/eventInfos';
 
 @Component({
     selector: 'app-battle',
@@ -9,6 +10,9 @@ import { GameStatus, GameStatusEnum } from '../models/gameStatus';
 })
 export class BattleComponent implements OnInit {
 
+    title = 'Pokemon';
+    eventInfos: EventInfos = new EventInfos();
+
     constructor(
         private gameService: GameService
     ) { }
@@ -16,24 +20,17 @@ export class BattleComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    title = 'pokemon';
-    messages: string[];
-    gameStatus: GameStatus = new GameStatus(GameStatusEnum.Stopped);
-
     startGame(): void {
-        this.messages = this.gameService.messages;
-        this.gameStatus = this.gameService.gameStatus;
-
+        this.eventInfos = this.gameService.eventInfos;
         this.gameService.startGame();
     }
 
     pauseGame(): void {
-        this.gameService.gameStatus.state = GameStatusEnum.Paused;
+        this.eventInfos.gameStatus = GameStatusEnum.Paused;
     }
 
     resumeGame(): void {
         this.gameService.resumeGame();
-        this.gameStatus.state = GameStatusEnum.Running;
     }
 
 }
