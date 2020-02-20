@@ -12,7 +12,7 @@ export class Pokemon {
     public url: string
   ) { }
 
-  attackPokemon(target: Pokemon): number {
+  public attackPokemon(target: Pokemon): number {
     let damage =
       Math.floor(Math.floor(Math.floor(2 * this.level / 5 + 2) * this.stats.attack * this.attack.power / target.stats.defense) / 50) + 2;
 

@@ -15,7 +15,7 @@ export class GameService {
 
   public eventInfos: EventInfos = new EventInfos();
 
-  private first: Pokemon;
+  public first: Pokemon;
   private second: Pokemon;
   private myTimer: unknown;
 
@@ -26,7 +26,6 @@ export class GameService {
   }
 
   private initBattle(pokemon1: Pokemon, pokemon2: Pokemon): void {
-
     this.eventInfos.winnerPokemonId = -1;
     this.eventInfos.logs.splice(0, this.eventInfos.logs.length);
     this.startBattle(new Battle(pokemon1, pokemon2));
@@ -47,7 +46,7 @@ export class GameService {
 
   private fight(): void {
 
-    this.myTimer = setInterval(function () {
+    this.myTimer = setInterval( function() {
 
       if (this.eventInfos.gameStatus === GameStatusEnum.Paused) {
         clearInterval(this.myTimer);
@@ -55,7 +54,7 @@ export class GameService {
         return;
       }
 
-      const dmgPoints = this.pokemon1.attackPokemon(this.pokemon2);
+      const dmgPoints = this.first.attackPokemon(this.second);
       this.eventInfos.logs.push(
         new Log(`${this.first.name} lance attaque ${this.first.attack.name} sur ${this.second.name}.`, true, dmgPoints)
       );

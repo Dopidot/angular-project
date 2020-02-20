@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { GameStatusEnum } from '../models/gameStatus';
 import { EventInfos } from '../models/eventInfos';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { Pokemon } from '../models/pokemon';
 import { PokemonService } from '../services/pokemon.service';
@@ -45,7 +45,6 @@ export class BattleComponent implements OnInit {
 
         console.log(this.pokemon1.name);
         console.log(this.pokemon2.name);
-
     }
 
     startGame(): void {
