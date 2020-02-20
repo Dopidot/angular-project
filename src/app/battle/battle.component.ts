@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { GameStatusEnum } from '../models/gameStatus';
 import { EventInfos } from '../models/eventInfos';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Pokemon } from '../models/pokemon';
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
     selector: 'app-battle',
@@ -12,23 +14,51 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class BattleComponent implements OnInit {
 
+    public pokemon1: Pokemon;
+    public pokemon2: Pokemon;
+
     title = 'Pokemon';
     eventInfos: EventInfos;
-    idPekomon1 : number;
+    idPokemon1 : number;
     idPokemon2 : number;
 
     constructor(
         private gameService: GameService,
-        private router: ActivatedRoute ) { }
+        private pokemonService: PokemonService,
+        private router : ActivatedRoute
+    ) { }
 
     ngOnInit(): void {
-        this.eventInfos = this.gameService.eventInfos;
-        this.idPekomon1 = this.router.params['idP1'];
-        this.idPokemon2 = this.router.params['idP2'];
+      //const listPokemonThatWillFight = this.pokemonService.getPokemonSelected();
+
+      console.log("On regarde chacal");
+
+      this.router.params
+      .subscribe((params: Params): void => {
+         this.idPokemon1 = Number(params.idP1);
+         this.idPokemon2 = Number(params.idP2);
+
+         console.log(this.idPokemon1);
+         console.log(this.idPokemon2);
+      });
+
+      console.log("Après les params");
+
+   
+      this.pokemon1 = this.pokemonService.getPokemonById(this.idPokemon1);
+      this.pokemon2 = this.pokemonService.getPokemonById(this.idPokemon2);
+
+      console.log(this.pokemon1.name);
+      console.log(this.pokemon2.name);
+
     }
 
     startGame(): void {
-        this.gameService.startGame();
+        this.eventInfos = this.gameService.eventInfos;
+        this.gameService.startGame(this.pokemon1, this.pokemon2);
+
+       // console.log("Liste des pokemons");
+       // this.pokemonService.getAllPokemon();
     }
 
     pauseGame(): void {

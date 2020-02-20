@@ -3,6 +3,7 @@ import { Pokemon } from '../models/pokemon';
 import { Attack } from '../models/attack';
 import { Router } from '@angular/router';
 
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,12 @@ export class HomeComponent implements OnInit {
   public pokemons: Array<Pokemon> = new Array<Pokemon>();
   public selectedPokemons: Array<Pokemon> = new Array<Pokemon>();
 
-  constructor(private router: Router) { }
+  constructor(
+    public pokemonService: PokemonService,private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.getInitPokemonList();
+    this.pokemons = this.pokemonService.getAllPokemon();
   }
 
   getInitPokemonList() : void {
