@@ -1,6 +1,20 @@
-<h1>Combat de pokemon ! </h1>
-<p>Selectionner les 2 pokémons qui devront combattre.</p>
+<div style="text-align: center;">
+    <h1>Combat de pokemon ! </h1>
+    <p>Selectionner les 2 pokémons qui devront combattre.</p>
 
-<div style="width: 50%; display: inline-block;">
-    <img *ngFor="let pokemon of pokemons" src="{{pokemon.url}}"/> 
+
+    <!-- Afficher les pokemons-->
+
+    <div *ngIf="this.selectedPokemons.length == 2">
+        <button type="button" class="btn btn-primary-outline pull-right" [routerLink]="['/battle', this.selectedPokemons[0].id, this.selectedPokemons[1].id]"> Fimbu !!!</button>
+    </div>
+    <div style="width: 80%; display: inline-block; ">
+
+        <div *ngFor="let pokemon of pokemons"
+            [ngClass]="[ selectedPokemons.includes(pokemon) ? 'selectedPokemon' : 'pokemon']"
+            (click)="getPokemonSelected(pokemon)">
+
+            <img width="70%" src="{{pokemon.url}}" />
+        </div>
+    </div>
 </div>

@@ -5,7 +5,7 @@ import { BattleComponent } from './battle/battle.component';
 
 const routes: Routes = [
     {path: 'home', component: HomeComponent},
-    {path: 'battle', component: BattleComponent},
+    {path: 'battle/:idP1/:idP2', component: BattleComponent},
     {
         path: '',
         redirectTo: '/home',

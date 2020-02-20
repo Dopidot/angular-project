@@ -6,6 +6,7 @@ import { GameStatusEnum } from '../models/gameStatus';
 import { Log } from '../models/log';
 import { EventInfos } from '../models/eventInfos';
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -28,8 +29,8 @@ export class GameService {
         const attack1 = new Attack('éclair', 25);
         const attack2 = new Attack('coupe', 31);
 
-        const pokemon1 = new Pokemon(1, 'Pikachu', 80, 10, initialHealth, attack1);
-        const pokemon2 = new Pokemon(2, 'Bulbizarre', 50, 10, initialHealth, attack2);
+        const pokemon1 = new Pokemon(1, 'Pikachu', 80, 10, initialHealth, attack1,"");
+        const pokemon2 = new Pokemon(2, 'Bulbizarre', 50, 10, initialHealth, attack2,"");
 
         this.eventInfos.winnerPokemonId = -1;
         this.eventInfos.logs.splice(0, this.eventInfos.logs.length);
