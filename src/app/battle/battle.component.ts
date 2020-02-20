@@ -10,29 +10,29 @@ import { EventInfos } from '../models/eventInfos';
 })
 export class BattleComponent implements OnInit {
 
-    title = 'Pokemon';
-    eventInfos: EventInfos;
-    startDate: Date;
+  title = 'Pokemon';
+  eventInfos: EventInfos;
+  startDate: Date;
 
-    constructor(
-        private gameService: GameService
-    ) { }
+  constructor(
+    public gameService: GameService
+  ) { }
 
-    ngOnInit(): void {
-        this.eventInfos = this.gameService.eventInfos;
-    }
+  ngOnInit(): void {
+    this.eventInfos = this.gameService.eventInfos;
+  }
 
-    startGame(): void {
-        this.gameService.startGame();
-        this.startDate = new Date();
-    }
+  public startGame(): void {
+    this.gameService.startGame();
+    this.startDate = new Date();
+  }
 
-    pauseGame(): void {
-        this.eventInfos.gameStatus = GameStatusEnum.Paused;
-    }
+  public pauseGame(): void {
+    this.eventInfos.gameStatus = GameStatusEnum.Paused;
+  }
 
-    resumeGame(): void {
-        this.gameService.resumeGame();
-    }
+  public resumeGame(): void {
+    this.gameService.resumeGame();
+  }
 
 }

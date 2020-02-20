@@ -5,6 +5,7 @@ import { Attack } from '../models/attack';
 import { GameStatusEnum } from '../models/gameStatus';
 import { Log } from '../models/log';
 import { EventInfos } from '../models/eventInfos';
+import { Stats } from '../models/stats';
 
 @Injectable({
     providedIn: 'root'
@@ -23,13 +24,14 @@ export class GameService {
         this.initBattle();
     }
 
-    private initBattle() : void {
-        const initialHealth = 100;
-        const attack1 = new Attack('éclair', 25);
-        const attack2 = new Attack('coupe', 31);
+    private initBattle(): void {
+        const attack1 = new Attack('éclair', 25, 0);
+        const attack2 = new Attack('coupe', 31, 0);
+        const statspikachu = new Stats(100, 80, 80, 80, 80, 80 );
+        const statsBulbizare = new Stats(100, 90, 80, 90, 80, 90 );
 
-        const pokemon1 = new Pokemon(1, 'Pikachu', 80, 10, initialHealth, attack1);
-        const pokemon2 = new Pokemon(2, 'Bulbizarre', 50, 10, initialHealth, attack2);
+        const pokemon1 = new Pokemon(1, 'Pikachu', statspikachu, 20, attack1);
+        const pokemon2 = new Pokemon(2, 'Bulbizarre', statsBulbizare, 20, attack2);
 
         this.eventInfos.winnerPokemonId = -1;
         this.eventInfos.logs.splice(0, this.eventInfos.logs.length);
@@ -37,7 +39,7 @@ export class GameService {
         this.startBattle(new Battle(pokemon1, pokemon2));
     }
 
-    private startBattle(battle: Battle) : void {
+    private startBattle(battle: Battle): void {
 
         this.eventInfos.logs.push(new Log('Lancement du combat...'));
 
@@ -52,7 +54,7 @@ export class GameService {
 
     private fight(): void {
 
-        this.myTimer = setInterval(function () {
+        this.myTimer = setInterval(function() {
 
             if (this.eventInfos.gameStatus === GameStatusEnum.Paused) {
                 clearInterval(this.myTimer);
@@ -60,14 +62,15 @@ export class GameService {
                 return;
             }
 
-            let dmgPoints = this.pokemon1.attackPokemon(this.pokemon2);
-            this.eventInfos.logs.push(new Log(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`, true, dmgPoints));
+            const dmgPoints = this.pokemon1.attackPokemon(this.pokemon2);
+            this.eventInfos.logs.push(
+              new Log(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`, true, dmgPoints)
+              );
 
-            if (this.pokemon2.health > 0) {
-                this.eventInfos.logs.push(new Log(`Il reste ${this.pokemon2.health} points de vie à ${this.pokemon2.name}.`));
-            }
-            else {
-                this.eventInfos.logs.push(new Log(`${this.pokemon2.name} est ko.`, false));
+            if (this.pokemon2.stats.health > 0) {
+                this.eventInfos.logs.push(new Log(`Il reste ${this.pokemon2.stats.health} points de vie à ${this.pokemon2.name}.`));
+            } else {
+                this.eventInfos.logs.push(new Log(`${this.pokemon2.name} est KO.`, false));
                 this.eventInfos.logs.push(new Log(`${this.pokemon1.name} gagne le combat.`));
 
                 this.eventInfos.winnerPokemonId = this.pokemon1.id;
@@ -76,7 +79,7 @@ export class GameService {
             }
 
             // change pokemon position for the next fight
-            let temp = this.pokemon1;
+            const temp = this.pokemon1;
             this.pokemon1 = this.pokemon2;
             this.pokemon2 = temp;
 
