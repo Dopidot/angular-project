@@ -14,25 +14,25 @@
         <img src="assets/gameboy1.png" style="width: 75%;">
 
         <div style="position: absolute; bottom: 27.5%; left: 0; right: 0;">
-            <button id="startButton" style="width: 23%;" (click)="startGame();" [hidden]="eventInfos.gameStatus !== 'STOPPED'">Lancer le combat !</button>
-            <button (click)="pauseGame();" style="width: 23%;" *ngIf="eventInfos.gameStatus === 'RUNNING'">Mettre en pause</button>
-            <button (click)="resumeGame();" style="width: 23%;" *ngIf="eventInfos.gameStatus === 'PAUSED'">Reprendre le combat</button>
+            <button id="startButton" class="button" (click)="startGame();" [hidden]="eventInfos.gameStatus !== 'STOPPED'">Lancer le combat !</button>
+            <button (click)="pauseGame();" class="button" *ngIf="eventInfos.gameStatus === 'RUNNING'">Mettre en pause</button>
+            <button (click)="resumeGame();" class="button" *ngIf="eventInfos.gameStatus === 'PAUSED'">Reprendre le combat</button>
         </div>
 
         <div *ngIf="startDate" style="position: absolute; top: 25%; margin-left: 35%; color: white;">
-            Début du combat : {{startDate | date:'hh:mm:ss'}}
+            Début du combat : {{startDate | date:'HH:mm:ss'}}
         </div>
 
         <div style="position: absolute; left: 0; right: 0; z-index: -2; margin: auto; top: 24%;">
             <img src="assets/battle_ground.jpg" style="width: 31%;">
         </div>
 
-        <div class="pokemonPosition1">
-            <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png">
+        <div [ngClass]="[eventInfos.pokemonIsAttacking[0] ? 'pokemonPositionMoved1' : 'pokemonPosition1']">
+            <img style="width: inherit;" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" [ngClass]="{'deadPokemon': (eventInfos.pokemon1 && eventInfos.winnerPokemonId === eventInfos.pokemon2.id)}">
         </div>
 
-        <div class="pokemonPosition2">
-            <img width="75" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" [ngClass]="{'deadPokemon': eventInfos.winnerPokemonId !== -1}">
+        <div [ngClass]="[eventInfos.pokemonIsAttacking[1] ? 'pokemonPositionMoved2' : 'pokemonPosition2']">
+            <img style="width: inherit;" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" [ngClass]="{'deadPokemon': (eventInfos.pokemon2 && eventInfos.winnerPokemonId === eventInfos.pokemon1.id)}">
         </div>
 
     </div>

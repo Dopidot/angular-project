@@ -288,23 +288,82 @@
   .deadPokemon {
     transform: rotate(180deg);
     filter: grayscale(100%);
-    transition-duration: 0.5s;
+    transition-duration: 0.2s;
     transition-timing-function: ease-out;
+    transition-delay: 0.5s;
   }
 
   .pokemonPosition1 {
-    width: 50%; 
+    width: 150px; 
     transform: scaleX(-1); 
     position: absolute; 
-    top: 43%; 
+    top: 45%; 
     z-index: -1; 
-    margin-left: 18%;
+    margin-left: 35%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
   }
 
   .pokemonPosition2 {
-    width: 50%;
+    width: 75px;
     position: absolute;
     top: 32%;
-    z-index: -1;
-    margin-left: 33%;
+    z-index: -2;
+    margin-left: 54%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+  }
+
+  .pokemonPositionMoved1 {
+    width: 125px; 
+    transform: scaleX(-1); 
+    position: absolute; 
+    top: 32%; 
+    z-index: -1; 
+    margin-left: 44%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+    transition-delay: 0.5s;
+  }
+
+  .pokemonPositionMoved2 {
+    width: 100px;
+    position: absolute;
+    top: 42%;
+    z-index: -2;
+    margin-left: 46%;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-out;
+    transition-delay: 0.5s;
+  }
+
+  .imgPokemon1 {
+      width: 150px;
+  }
+
+  .imgPokemonMoved1 {
+      width: 125px;
+  }
+
+  .imgPokemon2 {
+      width: 75px;
+  }
+
+  .imgPokemonMoved2 {
+      width: 100px;
+  }
+
+  .button {
+    width: 23%;
+    border: 3px solid black;
+    background: rgb(130, 130, 130);
+    color: white;
+    height: 30px;
+    font-family: cursive;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background: white;
+    color: #4b4b4b;
   }
