@@ -12,15 +12,21 @@
     <h2>Préparez-vous pour le combat !</h2>
     <p>Cliquez sur le bouton Lancer le combat.</p>
 
-    <!-- <img src="assets/gameboy.png"> -->
+    <div style="text-align: center; position: relative;">
+        <img src="assets/gameboy1.png" style="width: 75%;">
 
-    <div style="width: 80%; text-align: center; margin-top: 50px;">
-        <div style="width: 50%; display: inline-block; transform: scaleX(-1);">
+        <div style="position: absolute; left: 0; right: 0; z-index: -2; margin: auto; top: 24%;">
+            <img src="assets/battle_ground.jpg" style="width: 31%;">
+        </div>
+
+        <div class="pokemonPosition1">
             <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png">
         </div>
-        <div style="width: 50%; display: inline-block;">
-            <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" [ngClass]="{'deadPokemon': eventInfos.winnerPokemonId !== -1}">
+
+        <div class="pokemonPosition2">
+            <img width="75" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" [ngClass]="{'deadPokemon': eventInfos.winnerPokemonId !== -1}">
         </div>
+
     </div>
 
     <button id="startButton" (click)="startGame();" [hidden]="eventInfos.gameStatus !== 'STOPPED'">Lancer le combat !</button>

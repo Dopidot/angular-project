@@ -291,3 +291,20 @@
     transition-duration: 0.5s;
     transition-timing-function: ease-out;
   }
+
+  .pokemonPosition1 {
+    width: 50%; 
+    transform: scaleX(-1); 
+    position: absolute; 
+    top: 43%; 
+    z-index: -1; 
+    margin-left: 18%;
+  }
+
+  .pokemonPosition2 {
+    width: 50%;
+    position: absolute;
+    top: 32%;
+    z-index: -1;
+    margin-left: 33%;
+  }

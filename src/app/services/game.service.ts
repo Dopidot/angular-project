@@ -15,7 +15,7 @@ export class GameService {
 
     private pokemon1: Pokemon;
     private pokemon2: Pokemon;
-    private myTimer: any;
+    private myTimer: unknown;
 
     constructor() { }
 
