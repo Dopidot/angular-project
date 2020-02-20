@@ -11,17 +11,17 @@ import { EventInfos } from '../models/eventInfos';
 export class BattleComponent implements OnInit {
 
     title = 'Pokemon';
-    eventInfos: EventInfos = new EventInfos();
+    eventInfos: EventInfos;
 
     constructor(
         private gameService: GameService
     ) { }
 
     ngOnInit(): void {
+        this.eventInfos = this.gameService.eventInfos;
     }
 
     startGame(): void {
-        this.eventInfos = this.gameService.eventInfos;
         this.gameService.startGame();
     }
 
