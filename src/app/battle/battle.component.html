@@ -28,11 +28,11 @@
         </div>
 
         <div class="pokemonPosition1">
-            <img width="150" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png">
+            <img width="150" src="{{pokemon1.url}}" [ngClass]="">
         </div>
 
         <div class="pokemonPosition2">
-            <img width="75" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" [ngClass]="{'deadPokemon': eventInfos.winnerPokemonId !== -1}">
+            <img width="75" src="{{pokemon2.url}}" [ngClass]="">
         </div>
 
     </div>
