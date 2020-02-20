@@ -3,10 +3,3 @@ export enum GameStatusEnum {
     Running = 'RUNNING',
     Paused = 'PAUSED'
 }
-
-export class GameStatus {
-    
-    constructor(
-        public state: GameStatusEnum
-    ) {}
-}

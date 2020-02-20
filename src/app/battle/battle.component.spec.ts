@@ -23,10 +23,10 @@ describe('BattleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'pokemon'`, () => {
+  it(`should have as title 'Pokemon'`, () => {
     const fixture = TestBed.createComponent(BattleComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('pokemon');
+    expect(app.title).toEqual('Pokemon');
   });
 
   it('should render title', () => {
@@ -42,6 +42,6 @@ describe('BattleComponent', () => {
     const app = fixture.componentInstance;
     view.querySelector('#startButton').click();
     fixture.detectChanges();
-    expect(app.messages.length).toBeGreaterThan(0);
+    expect(app.eventInfos.logs.length).toBeGreaterThan(0);
   });
 });

@@ -1,38 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { Game } from '../models/game';
-import { GameStatus, GameStatusEnum } from '../models/gameStatus';
+import { GameService } from '../services/game.service';
+import { GameStatusEnum } from '../models/gameStatus';
+import { EventInfos } from '../models/eventInfos';
 
 @Component({
-  selector: 'app-battle',
-  templateUrl: './battle.component.html',
-  styleUrls: ['./battle.component.css']
+    selector: 'app-battle',
+    templateUrl: './battle.component.html',
+    styleUrls: ['./battle.component.css']
 })
 export class BattleComponent implements OnInit {
 
-  constructor() { }
+    title = 'Pokemon';
+    eventInfos: EventInfos = new EventInfos();
 
-  ngOnInit(): void {
-  }
+    constructor(
+        private gameService: GameService
+    ) { }
 
-  title = 'pokemon';
-    messages: string[];
-    game: Game = new Game();
-    gameStatus: GameStatus = new GameStatus(GameStatusEnum.Stopped);
-
-    startGame() : void {
-        this.messages = this.game.messages;
-        this.gameStatus = this.game.gameStatus;
-        
-        this.game.startGame();
+    ngOnInit(): void {
     }
 
-    pauseGame() : void {
-        this.game.gameStatus.state = GameStatusEnum.Paused;
+    startGame(): void {
+        this.eventInfos = this.gameService.eventInfos;
+        this.gameService.startGame();
     }
 
-    resumeGame() : void {
-        this.game.resumeGame();
-        this.gameStatus.state = GameStatusEnum.Running;
+    pauseGame(): void {
+        this.eventInfos.gameStatus = GameStatusEnum.Paused;
+    }
+
+    resumeGame(): void {
+        this.gameService.resumeGame();
     }
 
 }

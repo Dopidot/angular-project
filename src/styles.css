@@ -284,3 +284,10 @@
       visibility: hidden;
     }
   }
+
+  .deadPokemon {
+    transform: rotate(180deg);
+    filter: grayscale(100%);
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+  }

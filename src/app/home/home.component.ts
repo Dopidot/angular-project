@@ -18,17 +18,25 @@ export class HomeComponent implements OnInit {
   }
 
   getInitPokemonList() : void {
+
+
+
+
+
     
     const fimbu = new Attack("Fimbu",70);
-    const alakazam = new Pokemon("Alakazam",40,10,80,fimbu,"https://assets.pokemon.com/assets/cms2/img/pokedex/full/065.png" );
-    const galopa = new Pokemon("Galopa",20,10,70,fimbu,"https://assets.pokemon.com/assets/cms2/img/pokedex/full/078.png" );
-    const mewtwo = new Pokemon("Mewtwo" , 35 , 10, 100,fimbu,"https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png");
+    const alakazam = new Pokemon(1,"Alakazam",40,10,80,fimbu,"https://assets.pokemon.com/assets/cms2/img/pokedex/full/065.png" );
+    const galopa = new Pokemon(2,"Galopa",20,10,70,fimbu,"https://assets.pokemon.com/assets/cms2/img/pokedex/full/078.png" );
+    const mewtwo = new Pokemon(2,"Mewtwo" , 35 , 10, 100,fimbu,"https://assets.pokemon.com/assets/cms2/img/pokedex/full/150.png");
 
-    //this.pokemons.push(alakazam,galopa,mewtwo);
-
+    //this.pokemons.push(alakazam,galopa,mewtwo);3
     this.pokemons = [alakazam,galopa,mewtwo];
 
   }
+
+
+
+
 
   getAllPokemons() : Array<Pokemon>{
     return[this.pokemons[0] ,this.pokemons[1],this.pokemons[3],this.pokemons[4] ];
