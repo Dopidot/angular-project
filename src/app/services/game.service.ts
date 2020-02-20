@@ -61,13 +61,13 @@ export class GameService {
             }
 
             let dmgPoints = this.pokemon1.attackPokemon(this.pokemon2);
-            this.eventInfos.logs.push(new Log(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`));
+            this.eventInfos.logs.push(new Log(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`, true, dmgPoints));
 
             if (this.pokemon2.health > 0) {
                 this.eventInfos.logs.push(new Log(`Il reste ${this.pokemon2.health} points de vie à ${this.pokemon2.name}.`));
             }
             else {
-                this.eventInfos.logs.push(new Log(`${this.pokemon2.name} est KO.`, false));
+                this.eventInfos.logs.push(new Log(`${this.pokemon2.name} est ko.`, false));
                 this.eventInfos.logs.push(new Log(`${this.pokemon1.name} gagne le combat.`));
 
                 this.eventInfos.winnerPokemonId = this.pokemon1.id;
