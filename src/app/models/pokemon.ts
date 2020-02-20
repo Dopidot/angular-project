@@ -11,15 +11,18 @@ export class Pokemon {
         public attack: Attack
     ) { }
 
-    attackPokemon(target: Pokemon) : void {
-        const nbAttack = this.attack.damage;
+    attackPokemon(target: Pokemon) : number {
+        let dmgPoints = this.attack.damage;
 
-        if (target.health - nbAttack >= 0) {
-            target.health -= nbAttack;
+        if (target.health - dmgPoints >= 0) {
+            target.health -= dmgPoints;
         } 
         else {
+            dmgPoints = target.health;
             target.health = 0;
         }   
+
+        return dmgPoints;
     }
 
 }

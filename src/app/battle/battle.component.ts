@@ -12,6 +12,7 @@ export class BattleComponent implements OnInit {
 
     title = 'Pokemon';
     eventInfos: EventInfos;
+    startDate: Date;
 
     constructor(
         private gameService: GameService
@@ -23,6 +24,7 @@ export class BattleComponent implements OnInit {
 
     startGame(): void {
         this.gameService.startGame();
+        this.startDate = new Date();
     }
 
     pauseGame(): void {

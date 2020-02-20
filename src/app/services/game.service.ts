@@ -60,8 +60,8 @@ export class GameService {
                 return;
             }
 
+            let dmgPoints = this.pokemon1.attackPokemon(this.pokemon2);
             this.eventInfos.logs.push(new Log(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`));
-            this.pokemon1.attackPokemon(this.pokemon2);
 
             if (this.pokemon2.health > 0) {
                 this.eventInfos.logs.push(new Log(`Il reste ${this.pokemon2.health} points de vie à ${this.pokemon2.name}.`));

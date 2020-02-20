@@ -12,8 +12,13 @@
     <h2>Préparez-vous pour le combat !</h2>
     <p>Cliquez sur le bouton Lancer le combat.</p>
 
+    <!-- GameBoy -->
     <div style="text-align: center; position: relative;">
         <img src="assets/gameboy1.png" style="width: 75%;">
+
+        <div *ngIf="startDate" style="position: absolute; top: 25%; margin-left: 35%; color: white;">
+            Début du combat : {{startDate | date:'hh:mm:ss'}}
+        </div>
 
         <div style="position: absolute; left: 0; right: 0; z-index: -2; margin: auto; top: 24%;">
             <img src="assets/battle_ground.jpg" style="width: 31%;">
@@ -34,7 +39,9 @@
     <button (click)="resumeGame();" *ngIf="eventInfos.gameStatus === 'PAUSED'">Reprendre le combat</button>
 
     <div style="width: 40%; height: 150px; overflow: auto; border: 1px solid #ccc; margin-top: 30px;" *ngIf="eventInfos.logs.length > 0">
-        <div *ngFor="let log of eventInfos.logs.slice().reverse()" [ngStyle]="{'color': log.pokemonIsAlive ? '' : 'red'}">{{log.message}}</div>
+        <div *ngFor="let log of eventInfos.logs.slice().reverse()" [ngStyle]="{'color': log.pokemonIsAlive ? '' : 'red'}">
+            {{log.message}}
+        </div>
     </div>
 
 </div>
