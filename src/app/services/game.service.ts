@@ -13,38 +13,31 @@ export class GameService {
 
     public eventInfos: EventInfos = new EventInfos();
 
-    private pokemon1: Pokemon;
-    private pokemon2: Pokemon;
+    private first: Pokemon;
+    private second: Pokemon;
     private myTimer: any;
 
     constructor() { }
 
-    startGame(): void {
-        this.initBattle();
+    startGame(pokemon1: Pokemon, pokemon2: Pokemon): void {
+        this.initBattle(pokemon1, pokemon2);
     }
 
-    private initBattle() : void {
-        const initialHealth = 100;
-        const attack1 = new Attack('éclair', 25);
-        const attack2 = new Attack('coupe', 31);
-
-        const pokemon1 = new Pokemon(1, 'Pikachu', 80, 10, initialHealth, attack1);
-        const pokemon2 = new Pokemon(2, 'Bulbizarre', 50, 10, initialHealth, attack2);
+    private initBattle(pokemon1: Pokemon, pokemon2: Pokemon): void {
 
         this.eventInfos.winnerPokemonId = -1;
         this.eventInfos.logs.splice(0, this.eventInfos.logs.length);
-
         this.startBattle(new Battle(pokemon1, pokemon2));
     }
 
-    private startBattle(battle: Battle) : void {
+    private startBattle(battle: Battle): void {
 
         this.eventInfos.logs.push(new Log('Lancement du combat...'));
 
-        this.pokemon1 = battle.getFirstPokemonBattle();
-        this.pokemon2 = this.pokemon1 === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
+        this.first = battle.getFirstPokemonBattle();
+        this.second = this.first === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
 
-        this.eventInfos.logs.push(new Log(`${this.pokemon1.name} commence en premier le combat.`));
+        this.eventInfos.logs.push(new Log(`${this.first.name} commence en premier le combat.`));
 
         this.eventInfos.gameStatus = GameStatusEnum.Running;
         this.fight();
@@ -52,7 +45,7 @@ export class GameService {
 
     private fight(): void {
 
-        this.myTimer = setInterval(function () {
+        this.myTimer = setInterval(function() {
 
             if (this.eventInfos.gameStatus === GameStatusEnum.Paused) {
                 clearInterval(this.myTimer);
@@ -60,25 +53,24 @@ export class GameService {
                 return;
             }
 
-            this.eventInfos.logs.push(new Log(`${this.pokemon1.name} lance attaque ${this.pokemon1.attack.name} sur ${this.pokemon2.name}.`));
-            this.pokemon1.attackPokemon(this.pokemon2);
+            this.eventInfos.logs.push(new Log(`${this.first.name} lance attaque ${this.first.attack.name} sur ${this.second.name}.`));
+            this.first.attackPokemon(this.second);
 
-            if (this.pokemon2.health > 0) {
-                this.eventInfos.logs.push(new Log(`Il reste ${this.pokemon2.health} points de vie à ${this.pokemon2.name}.`));
-            }
-            else {
-                this.eventInfos.logs.push(new Log(`${this.pokemon2.name} est KO.`, false));
-                this.eventInfos.logs.push(new Log(`${this.pokemon1.name} gagne le combat.`));
+            if (this.second.health > 0) {
+                this.eventInfos.logs.push(new Log(`Il reste ${this.second.health} points de vie à ${this.second.name}.`));
+            } else {
+                this.eventInfos.logs.push(new Log(`${this.second.name} est KO.`, false));
+                this.eventInfos.logs.push(new Log(`${this.first.name} gagne le combat.`));
 
-                this.eventInfos.winnerPokemonId = this.pokemon1.id;
+                this.eventInfos.winnerPokemonId = this.first.id;
                 this.eventInfos.gameStatus = GameStatusEnum.Stopped;
                 clearInterval(this.myTimer);
             }
 
             // change pokemon position for the next fight
-            let temp = this.pokemon1;
-            this.pokemon1 = this.pokemon2;
-            this.pokemon2 = temp;
+            const temp = this.first;
+            this.first = this.second;
+            this.second = temp;
 
         }.bind(this), 1000);
     }

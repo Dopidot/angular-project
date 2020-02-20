@@ -1,8 +1,8 @@
 import { Attack } from './attack';
 
 export class Pokemon {
-	
-	constructor(
+
+  constructor(
         public id: number,
         public name: string,
         public speed: number,
@@ -12,15 +12,14 @@ export class Pokemon {
         public url: string
     ) { }
 
-    attackPokemon(target: Pokemon) : void {
+    attackPokemon(target: Pokemon): void {
         const nbAttack = this.attack.damage;
 
         if (target.health - nbAttack >= 0) {
             target.health -= nbAttack;
-        } 
-        else {
+        } else {
             target.health = 0;
-        }   
+        }
     }
 
 }
