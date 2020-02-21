@@ -1,6 +1,16 @@
-<div style="text-align: center;">
-    <h1>Combat de pokemon ! </h1>
-    <p>Selectionner les 2 pokémons qui devront combattre.</p>
+<div style="text-align: center;" class="content">
+
+    <!-- PokeBox -->
+    <div class="card highlight-card card-small" style="width: 20%;">
+
+        <img width="75"
+            src="https://www.brooklinelibrary.org/wp-content/uploads/2016/07/2000px-Pok%C3%A9_Ball.svg_-1.png">
+
+        <span style="margin-left: 10px; font-family: cursive;">Combat de pokemon !</span>
+    </div>
+    <div style="background: white; padding: 5px 10px; border: 3px solid #1976d2;">
+        Selectionner les 2 pokémons qui devront combattre.
+    </div>
 
     <div *ngIf="errorMessage" class="error">
         <div style="font-weight: bold;">Erreur !</div>
@@ -8,7 +18,7 @@
     </div>
 
     <!-- Afficher les pokemons-->
-    <div style="width: 80%; display: inline-block; margin-top: 20px;">
+    <div style="width: 110%; display: inline-block; margin-top: 20px;">
         <div *ngFor="let pokemon of pokemons"
             [ngClass]="[ selectedPokemons.includes(pokemon) ? 'selectedPokemon' : 'pokemon']"
             (click)="addPokemonToSelectedPokemonList(pokemon)">
@@ -16,10 +26,11 @@
         </div>
     </div>
 
-    <div *ngIf="this.selectedPokemons.length == 2" style="margin-top: 20px;">
-        <button type="button" class="button"
-            [routerLink]="['/battle', this.selectedPokemons[0].id, this.selectedPokemons[1].id]"> Commencer le
-            combat</button>
+    <div *ngIf="this.selectedPokemons.length == 2" style="margin-top: 20px; width: 100%;">
+        <button type="button" class="button" style="width: 20%;"
+            [routerLink]="['/battle', this.selectedPokemons[0].id, this.selectedPokemons[1].id]"> 
+            Commencer le combat
+        </button>
     </div>
 
 </div>

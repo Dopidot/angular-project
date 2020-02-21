@@ -294,28 +294,28 @@
   }
 
   .pokemonPosition1 {
-    width: 150px; 
+    width: 200px; 
     transform: scaleX(-1); 
     position: absolute; 
-    top: 45%; 
+    top: 40%; 
     z-index: -1; 
-    margin-left: 35%;
+    margin-left: 33%;
     transition-duration: 0.1s;
     transition-timing-function: ease-out;
   }
 
   .pokemonPosition2 {
-    width: 75px;
+    width: 125px;
     position: absolute;
-    top: 32%;
+    top: 27%;
     z-index: -2;
-    margin-left: 54%;
+    margin-left: 50%;
     transition-duration: 0.1s;
     transition-timing-function: ease-out;
   }
 
   .pokemonPositionMoved1 {
-    width: 125px; 
+    width: 150px; 
     transform: scaleX(-1); 
     position: absolute; 
     top: 32%; 
@@ -327,11 +327,11 @@
   }
 
   .pokemonPositionMoved2 {
-    width: 100px;
+    width: 175px;
     position: absolute;
-    top: 42%;
+    top: 33%;
     z-index: -2;
-    margin-left: 46%;
+    margin-left: 40%;
     transition-duration: 0.1s;
     transition-timing-function: ease-out;
     transition-delay: 0.5s;
@@ -380,4 +380,9 @@
     width: 80%;
     padding: 5px 10px;
     border: 2px solid #595959;
+  }
+
+  .log {
+    text-transform: uppercase;
+    font-family: monospace;
   }
