@@ -17,7 +17,22 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.pokemons = this.pokemonService.getAllPokemon();
+
+    console.log(this.pokemons)
+console.log("url");
+
+for(let i= 0; i<this.pokemons.length;i++){
+  this.pokemonService.getPokemonByName(this.pokemons[i].name)
+  .subscribe(data => {
+    this.pokemons[i].url = data.sprites.front_default;
+  });
+
+}
+
+    
+
   }
 
   addPokemonToSelectedPokemonList(pokemon: Pokemon) {
