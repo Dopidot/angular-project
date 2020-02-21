@@ -22,6 +22,7 @@ export class GameService {
     private battle: BattleService;
 
     constructor() {
+        this.battle = new BattleService();
     }
 
     public startGame(pokemon1: Pokemon, pokemon2: Pokemon): Observable<EventInfos> {
@@ -33,16 +34,15 @@ export class GameService {
 
         this.roundIsComplete = false;
         this.isFinished = false;
-        this.battle = new BattleService();
 
-        return this.startBattle(this.battle, pokemon1, pokemon2);
+        return this.startBattle(pokemon1, pokemon2);
     }
 
-    private startBattle(battle: BattleService, pokemon1: Pokemon, pokemon2: Pokemon): Observable<EventInfos> {
+    private startBattle(pokemon1: Pokemon, pokemon2: Pokemon): Observable<EventInfos> {
 
         this.eventInfos.logs.push(new Log('Lancement du combat...'));
 
-        this.first = battle.getFirstPokemonBattle(pokemon1, pokemon2);
+        this.first = this.battle.getFirstPokemonBattle(pokemon1, pokemon2);
         this.second = this.first === pokemon1 ? pokemon2 : pokemon1;
 
         this.eventInfos.logs.push(new Log(`${this.first.name} commence en premier le combat.`));
@@ -54,7 +54,7 @@ export class GameService {
         });
     }
 
-    private gameLoop(sub: Subscriber<EventInfos>) {
+    private gameLoop(sub: Subscriber<EventInfos>) : void {
 
         let fightIsFinished = false
         let myInterval = interval(1000).pipe(takeWhile(()=> !fightIsFinished));
@@ -63,6 +63,8 @@ export class GameService {
             if (!this.fight(sub)) {
                 fightIsFinished = true;
             }
+        }, error => {
+            throw new Error('Une erreur est survenue dans la boucle du jeu.');
         });
     }
 

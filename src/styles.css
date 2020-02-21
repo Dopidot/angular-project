@@ -374,3 +374,10 @@
     min-height: 98vh;
     transition-duration: 2s;
   }
+
+  .error {
+    background: white;
+    width: 80%;
+    padding: 5px 10px;
+    border: 2px solid #595959;
+  }

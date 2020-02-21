@@ -1,17 +1,25 @@
 <div style="text-align: center;">
-  <h1>Combat de pokemon ! </h1>
-  <p>Selectionner les 2 pokémons qui devront combattre.</p>
+    <h1>Combat de pokemon ! </h1>
+    <p>Selectionner les 2 pokémons qui devront combattre.</p>
 
-  <!-- Afficher les pokemons-->
-  <div style="width: 80%; display: inline-block; margin-top: 20px;">
-    <div *ngFor="let pokemon of pokemons"
-      [ngClass]="[ selectedPokemons.includes(pokemon) ? 'selectedPokemon' : 'pokemon']" (click)="addPokemonToSelectedPokemonList(pokemon)">
-      <img width="70%" src="{{pokemon.url}}" />
+    <div *ngIf="errorMessage" class="error">
+        <div style="font-weight: bold;">Erreur !</div>
+        <div>{{errorMessage}}</div>
     </div>
-  </div>
 
-  <div *ngIf="this.selectedPokemons.length == 2" style="margin-top: 20px;">
-    <button type="button" class="button" [routerLink]="['/battle', this.selectedPokemons[0].id, this.selectedPokemons[1].id]"> Commencer le combat</button>
-  </div>
+    <!-- Afficher les pokemons-->
+    <div style="width: 80%; display: inline-block; margin-top: 20px;">
+        <div *ngFor="let pokemon of pokemons"
+            [ngClass]="[ selectedPokemons.includes(pokemon) ? 'selectedPokemon' : 'pokemon']"
+            (click)="addPokemonToSelectedPokemonList(pokemon)">
+            <img width="70%" src="{{pokemon.url}}" />
+        </div>
+    </div>
+
+    <div *ngIf="this.selectedPokemons.length == 2" style="margin-top: 20px;">
+        <button type="button" class="button"
+            [routerLink]="['/battle', this.selectedPokemons[0].id, this.selectedPokemons[1].id]"> Commencer le
+            combat</button>
+    </div>
 
 </div>

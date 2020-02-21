@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
-import { GameStatusEnum } from '../models/gameStatus';
 import { EventInfos } from '../models/eventInfos';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -14,14 +13,15 @@ import { PokemonService } from '../services/pokemon.service';
 })
 export class BattleComponent implements OnInit {
 
-    title = 'Pokemon';
+    public title = 'Pokemon';
     public pokemon1: Pokemon;
     public pokemon2: Pokemon;
 
-    eventInfos: EventInfos = new EventInfos();
-    startDate: Date;
-    idPokemon1: number;
-    idPokemon2: number;
+    public eventInfos: EventInfos = new EventInfos();
+    public startDate: Date;
+    public idPokemon1: number;
+    public idPokemon2: number;
+    public errorMessage: string;
 
     constructor(
         private gameService: GameService,
@@ -45,10 +45,14 @@ export class BattleComponent implements OnInit {
             location.reload();
             return;
         }
+
+        this.startDate = new Date();
+
         this.gameService.startGame(this.pokemon1, this.pokemon2).subscribe(response => {
             this.eventInfos = response;
+        }, error => {
+            this.errorMessage = error;
         });
-        this.startDate = new Date();
     }
 
     pauseGame(): void {
@@ -58,6 +62,8 @@ export class BattleComponent implements OnInit {
     resumeGame(): void {
         this.gameService.resumeGame().subscribe(response => {
             this.eventInfos = response;
+        }, error => {
+            this.errorMessage = error;
         });
     }
 
