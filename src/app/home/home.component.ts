@@ -11,9 +11,10 @@ export class HomeComponent implements OnInit {
 
   public pokemons: Array<Pokemon> = new Array<Pokemon>();
   public selectedPokemons: Array<Pokemon> = new Array<Pokemon>();
+  public errorMessage: string;
 
   constructor(
-    public pokemonService: PokemonService
+    private pokemonService: PokemonService
   ) { }
 
   ngOnInit(): void {

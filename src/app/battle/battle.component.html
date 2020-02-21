@@ -9,6 +9,11 @@
         <span style="margin-left: 10px; font-family: cursive;">Préparez-vous pour le combat !</span>
     </div>
 
+    <div *ngIf="errorMessage" class="error">
+        <div style="font-weight: bold;">Erreur !</div>
+        <div>{{errorMessage}}</div>
+    </div>
+
     <!-- GameBoy -->
     <div style="text-align: center; position: relative; margin-top: -35px; margin-bottom: -60px;">
         <img src="assets/gameboy1.png" style="width: 75%;">
