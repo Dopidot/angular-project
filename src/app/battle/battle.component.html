@@ -28,11 +28,11 @@
         </div>
 
         <div [ngClass]="[eventInfos.pokemonIsAttacking[0] ? 'pokemonPositionMoved1' : 'pokemonPosition1']">
-            <img style="width: inherit;" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/025.png" [ngClass]="{'deadPokemon': (eventInfos.pokemon1 && eventInfos.winnerPokemonId === eventInfos.pokemon2.id)}">
+            <img style="width: inherit;" src="{{pokemon1.url}}" [ngClass]="{'deadPokemon': (eventInfos.pokemon1 && eventInfos.winnerPokemonId === eventInfos.pokemon2.id)}">
         </div>
 
         <div [ngClass]="[eventInfos.pokemonIsAttacking[1] ? 'pokemonPositionMoved2' : 'pokemonPosition2']">
-            <img style="width: inherit;" src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" [ngClass]="{'deadPokemon': (eventInfos.pokemon2 && eventInfos.winnerPokemonId === eventInfos.pokemon1.id)}">
+            <img style="width: inherit;" src="{{pokemon2.url}}" [ngClass]="{'deadPokemon': (eventInfos.pokemon2 && eventInfos.winnerPokemonId === eventInfos.pokemon1.id)}">
         </div>
 
     </div>

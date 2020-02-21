@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div style="text-align: center;">
+  <h1>Combat de pokemon ! </h1>
+  <p>Selectionner les 2 pokémons qui devront combattre.</p>
+
+  <!-- Afficher les pokemons-->
+
+  <div *ngIf="this.selectedPokemons.length == 2">
+    <button type="button" class="btn btn-primary-outline pull-right" [routerLink]="['/battle', this.selectedPokemons[0].id, this.selectedPokemons[1].id]"> Commencer le combat</button>
+  </div>
+  <div style="width: 80%; display: inline-block; ">
+    <div *ngFor="let pokemon of pokemons"
+      [ngClass]="[ selectedPokemons.includes(pokemon) ? 'selectedPokemon' : 'pokemon']" (click)="addPokemonToSelectedPokemonList(pokemon)">
+      <img width="70%" src="{{pokemon.url}}" />
+    </div>
+  </div>
+</div>

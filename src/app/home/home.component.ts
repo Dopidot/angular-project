@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Pokemon } from '../models/pokemon';
+import { PokemonService } from '../services/pokemon.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public pokemons: Array<Pokemon> = new Array<Pokemon>();
+  public selectedPokemons: Array<Pokemon> = new Array<Pokemon>();
+
+  constructor(
+    public pokemonService: PokemonService
+  ) { }
 
   ngOnInit(): void {
+    this.pokemons = this.pokemonService.getAllPokemon();
+  }
+
+  addPokemonToSelectedPokemonList(pokemon: Pokemon) {
+
+    if (this.selectedPokemons.length < 2) {
+      this.selectedPokemons.push(pokemon);
+      console.log(pokemon.id);
+    }
   }
 
 }

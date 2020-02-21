@@ -1,0 +1,23 @@
+.pokemon {
+    border: 3px solid #1976d2;
+    width: 15%;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 15px;
+  }
+
+  .pokemon:hover {
+      border: 3px solid #008000;
+  }
+
+ .selectedPokemon {
+    border: 3px solid #008000;
+    width: 15%;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 15px;
+ }
+
+ 

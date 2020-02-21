@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BattleComponent } from './battle.component';
 
 describe('BattleComponent', () => {
@@ -27,13 +26,6 @@ describe('BattleComponent', () => {
     const fixture = TestBed.createComponent(BattleComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('Pokemon');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(BattleComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('pokemon app is running!');
   });
 
   it('should launch the battle', () => {
