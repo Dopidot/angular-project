@@ -1,27 +1,27 @@
-import { Pokemon } from './pokemon';
+/*import { Pokemon } from './pokemon';
 import { Battle } from './battle';
 import { Attack } from './attack';
-import { GameStatus, GameStatusEnum } from '../models/gameStatus';
+import { GameStatusEnum } from '../models/gameStatus';
 
 export class Game {
 
     public messages: string[] = [];
-    public gameStatus: GameStatus = new GameStatus(GameStatusEnum.Stopped);
+    public gameStatus: GameStatusEnum = GameStatusEnum.Stopped;
 
     private pokemon1: Pokemon;
     private pokemon2: Pokemon;
     private myTimer: any;
-    
+
     constructor( ) { }
 
-    startGame() : void {
+    startGame(): void {
         this.initBattle();
     }
 
     private initBattle() {
         const initialHealth = 100;
-        const attack1 = new Attack('éclair', 25);
-        const attack2 = new Attack('coupe', 31);
+        const attack1 = new Attack('éclair', 25, 0);
+        const attack2 = new Attack('coupe', 31, 0);
 
         const pokemon1 = new Pokemon(1,'Pikachu', 80, 10, initialHealth, attack1,"");
         const pokemon2 = new Pokemon(2,'Bulbizarre', 50, 10, initialHealth, attack2,"");
@@ -37,7 +37,7 @@ export class Game {
 
         this.pokemon1 = battle.getFirstPokemonBattle();
         this.pokemon2 = this.pokemon1 === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
-        
+
         this.messages.push(`${this.pokemon1.name} commence en premier le combat.`);
 
         this.gameStatus.state = GameStatusEnum.Running;
@@ -72,7 +72,7 @@ export class Game {
             let temp = this.pokemon1;
             this.pokemon1 = this.pokemon2;
             this.pokemon2 = temp;
-            
+
         }.bind(this), 1000);
     }
 
@@ -80,4 +80,4 @@ export class Game {
         this.gameStatus.state = GameStatusEnum.Running;
         this.fight();
     }
-}
+}*/

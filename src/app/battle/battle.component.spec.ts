@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BattleComponent } from './battle.component';
+import { RouterModule, ActivatedRoute } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+import { of } from 'rxjs';
 
 describe('BattleComponent', () => {
   let component: BattleComponent;
@@ -7,7 +10,21 @@ describe('BattleComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BattleComponent ]
+      declarations: [ BattleComponent ],
+      providers: [{provide: APP_BASE_HREF, useValue: '/'}, {
+        provide: ActivatedRoute,
+        useValue: {
+          params: of({
+            idP1: 1,
+            idP2: 2
+          })
+        }
+      }],
+      imports: [
+        RouterModule.forRoot([
+          {path: 'battle/:idP1/:idP2', component: BattleComponent}
+        ])
+      ]
     })
     .compileComponents();
   }));
