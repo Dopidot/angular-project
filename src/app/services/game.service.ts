@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../models/pokemon';
 import { Battle } from '../models/battle';
-import { Attack } from '../models/attack';
 import { GameStatusEnum } from '../models/gameStatus';
 import { Log } from '../models/log';
 import { EventInfos } from '../models/eventInfos';
-import { interval, Observable, Subscription, observable } from 'rxjs';
-import { Stats } from '../models/stats';
+import { interval, Observable, Subscriber } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 
 
 @Injectable({
@@ -18,14 +17,13 @@ export class GameService {
 
     public first: Pokemon;
     private second: Pokemon;
-    private myTimer: unknown;
     private roundIsComplete: boolean = false;
-    private isWin: boolean = false;
+    private isFinished: boolean = false;
 
     constructor() {
     }
 
-    startGame(pokemon1: Pokemon, pokemon2: Pokemon): void {
+    public startGame(pokemon1: Pokemon, pokemon2: Pokemon): Observable<EventInfos> {
 
         this.eventInfos.winnerPokemonId = -1;
         this.eventInfos.logs.splice(0, this.eventInfos.logs.length);
@@ -33,12 +31,12 @@ export class GameService {
         this.eventInfos.pokemon2 = pokemon2;
 
         this.roundIsComplete = false;
-        this.isWin = false;
+        this.isFinished = false;
 
-        this.startBattle(new Battle(pokemon1, pokemon2));
+        return this.startBattle(new Battle(pokemon1, pokemon2));
     }
 
-    private startBattle(battle: Battle): void {
+    private startBattle(battle: Battle): Observable<EventInfos> {
 
         this.eventInfos.logs.push(new Log('Lancement du combat...'));
 
@@ -48,15 +46,32 @@ export class GameService {
         this.eventInfos.logs.push(new Log(`${this.first.name} commence en premier le combat.`));
 
         this.eventInfos.gameStatus = GameStatusEnum.Running;
-        this.fight2();
+
+        return new Observable<EventInfos>(subscriber => {
+            this.gameLoop(subscriber);
+        });
     }
 
-    private fight(observable: Subscription): void {
+    private gameLoop(sub: Subscriber<EventInfos>) {
+
+        let fightIsFinished = false
+        let myInterval = interval(1000).pipe(takeWhile(()=> !fightIsFinished));
+
+        myInterval.subscribe(subscriber => {
+            if (!this.fight(sub)) {
+                fightIsFinished = true;
+            }
+        });
+    }
+
+    private fight(sub: Subscriber<EventInfos>): boolean {
+
+        sub.next(this.eventInfos);
 
         if (this.eventInfos.gameStatus === GameStatusEnum.Paused) {
             this.eventInfos.gameStatus = GameStatusEnum.Paused;
-            observable.unsubscribe();
-            return;
+            sub.unsubscribe();
+            return false;
         }
 
         let pokemon1: Pokemon = this.first;
@@ -69,7 +84,7 @@ export class GameService {
             pokemon2 = this.first;
         }
 
-        if (this.isWin) {
+        if (this.isFinished) {
 
             this.eventInfos.logs.push(new Log(`${pokemon1.name} est ko.`, false));
             this.eventInfos.logs.push(new Log(`${pokemon2.name} gagne le combat.`));
@@ -77,8 +92,8 @@ export class GameService {
 
             this.eventInfos.winnerPokemonId = pokemon2.id;
             this.eventInfos.gameStatus = GameStatusEnum.Stopped;
-            observable.unsubscribe();
-            return;
+            sub.unsubscribe();
+            return false;
         }
 
         let dmgPoints = pokemon1.attackPokemon(pokemon2);
@@ -89,26 +104,24 @@ export class GameService {
             this.eventInfos.logs.push(new Log(`Il reste ${pokemon2.stats.health} points de vie à ${pokemon2.name}.`));
         }
         else {
-            this.isWin = true;
+            this.isFinished = true;
         }
 
         this.roundIsComplete = !this.roundIsComplete;
+
+        return true;
     }
 
-    public resumeGame(): void {
+    public resumeGame(): Observable<EventInfos> {
         this.eventInfos.gameStatus = GameStatusEnum.Running;
-        this.fight2();
+        
+        return new Observable<EventInfos>(subscriber => {
+            this.gameLoop(subscriber);
+        });
     }
 
-    private fight2() {
-        // Create an Observable that will publish a value on an interval
-        const observableCounter = interval(1000);
-
-        // Subscribe to begin publishing values
-        const observableSubscribed = observableCounter.subscribe(n => {
-            this.fight(observableSubscribed);
-        });
-
+    public pauseGame() : void {
+        this.eventInfos.gameStatus = GameStatusEnum.Paused;
     }
 
 }
