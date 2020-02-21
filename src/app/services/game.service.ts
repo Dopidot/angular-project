@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../models/pokemon';
-import { Battle } from '../models/battle';
+import { BattleService } from '../services/battle.service';
 import { GameStatusEnum } from '../models/gameStatus';
 import { Log } from '../models/log';
 import { EventInfos } from '../models/eventInfos';
@@ -19,6 +19,7 @@ export class GameService {
     private second: Pokemon;
     private roundIsComplete: boolean = false;
     private isFinished: boolean = false;
+    private battle: BattleService;
 
     constructor() {
     }
@@ -32,16 +33,17 @@ export class GameService {
 
         this.roundIsComplete = false;
         this.isFinished = false;
+        this.battle = new BattleService();
 
-        return this.startBattle(new Battle(pokemon1, pokemon2));
+        return this.startBattle(this.battle, pokemon1, pokemon2);
     }
 
-    private startBattle(battle: Battle): Observable<EventInfos> {
+    private startBattle(battle: BattleService, pokemon1: Pokemon, pokemon2: Pokemon): Observable<EventInfos> {
 
         this.eventInfos.logs.push(new Log('Lancement du combat...'));
 
-        this.first = battle.getFirstPokemonBattle();
-        this.second = this.first === battle.pokemon1 ? battle.pokemon2 : battle.pokemon1;
+        this.first = battle.getFirstPokemonBattle(pokemon1, pokemon2);
+        this.second = this.first === pokemon1 ? pokemon2 : pokemon1;
 
         this.eventInfos.logs.push(new Log(`${this.first.name} commence en premier le combat.`));
 
@@ -96,7 +98,7 @@ export class GameService {
             return false;
         }
 
-        let dmgPoints = pokemon1.attackPokemon(pokemon2);
+        let dmgPoints = this.battle.attackPokemon(pokemon1, pokemon2);
         this.eventInfos.logs.push(new Log(`${pokemon1.name} lance attaque ${pokemon1.attack.name} sur ${pokemon2.name}.`, true, dmgPoints));
         this.eventInfos.pokemonIsAttacking = [this.roundIsComplete ? false : true, this.roundIsComplete ? true : false];
 
