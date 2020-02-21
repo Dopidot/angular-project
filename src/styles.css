@@ -371,4 +371,6 @@
   .background {
     background: no-repeat center url(assets/background.png); 
     background-size: cover; 
+    min-height: 98vh;
+    transition-duration: 2s;
   }

@@ -3,21 +3,38 @@
     width: 15%;
     display: inline-block;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 15px;
+    background: white;
   }
 
   .pokemon:hover {
-      border: 3px solid #008000;
+      border: 3px solid #ffc800;
   }
 
  .selectedPokemon {
-    border: 3px solid #008000;
+    border: 3px solid #00c400;
     width: 15%;
     display: inline-block;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 15px;
+    background: white;
+ }
+
+ .button {
+    width: 15%;
+    border: 3px solid #1976d2;
+    background: #1976d2;
+    color: white;
+    height: 30px;
+    font-family: cursive;
+    cursor: pointer;
+ }
+
+ .button:hover {
+    color: #131313;
+    background: white;
  }
 
  
