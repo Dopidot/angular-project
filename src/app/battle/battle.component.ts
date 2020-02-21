@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { GameStatusEnum } from '../models/gameStatus';
 import { EventInfos } from '../models/eventInfos';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Pokemon } from '../models/pokemon';
 import { PokemonService } from '../services/pokemon.service';
@@ -41,6 +41,10 @@ export class BattleComponent implements OnInit {
     }
 
     startGame(): void {
+        if (this.eventInfos.winnerPokemonId !== -1) {
+            location.reload();
+            return;
+        }
         this.gameService.startGame(this.pokemon1, this.pokemon2).subscribe(response => {
             this.eventInfos = response;
         });
