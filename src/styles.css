@@ -367,3 +367,8 @@
     background: white;
     color: #4b4b4b;
   }
+
+  .background {
+    background: no-repeat center url(assets/background.png); 
+    background-size: cover; 
+  }

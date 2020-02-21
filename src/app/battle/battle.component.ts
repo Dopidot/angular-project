@@ -18,7 +18,7 @@ export class BattleComponent implements OnInit {
     public pokemon1: Pokemon;
     public pokemon2: Pokemon;
 
-    eventInfos: EventInfos;
+    eventInfos: EventInfos = new EventInfos();
     startDate: Date;
     idPokemon1: number;
     idPokemon2: number;
@@ -30,7 +30,6 @@ export class BattleComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.eventInfos = this.gameService.eventInfos;
         this.router.params
             .subscribe((params: Params): void => {
                 this.idPokemon1 = Number(params.idP1);
@@ -42,16 +41,20 @@ export class BattleComponent implements OnInit {
     }
 
     startGame(): void {
-        this.gameService.startGame(this.pokemon1, this.pokemon2);
+        this.gameService.startGame(this.pokemon1, this.pokemon2).subscribe(response => {
+            this.eventInfos = response;
+        });
         this.startDate = new Date();
     }
 
     pauseGame(): void {
-        this.eventInfos.gameStatus = GameStatusEnum.Paused;
+        this.gameService.pauseGame();
     }
 
     resumeGame(): void {
-        this.gameService.resumeGame();
+        this.gameService.resumeGame().subscribe(response => {
+            this.eventInfos = response;
+        });
     }
 
 }
